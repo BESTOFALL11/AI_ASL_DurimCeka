@@ -17,6 +17,7 @@ asl_landmark_dataset/
 *.pkl
 *.pth
 universal_model.pkl
+!landmarks_dataset.pkl
 
 # Keep small config if needed, but universal_model.pkl is TABOO (310MB)
 
