@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+venv/
+env/
+.env
+
+# VS Code
+.vscode/
+
+# Project Specific
+Data/
+asl_landmark_dataset/
+*.pkl
+*.pth
+universal_model.pkl
+
+# Keep small config if needed, but universal_model.pkl is TABOO (310MB)
+
+# System
+.DS_Store
+Thumbs.db
