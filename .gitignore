@@ -11,16 +11,38 @@ env/
 # VS Code
 .vscode/
 
-# Project Specific
+# ============================================
+# LARGE FILES TO EXCLUDE (Do NOT push these)
+# ============================================
+
+# Original Kaggle dataset archive (1.3GB)
+archive.zip
+
+# Extracted dataset folder (87,000 images)
+dataset/
+
+# Cached training landmarks (10MB)
+kaggle_landmarks.pkl
+
+# Old dataset folders
 Data/
 asl_landmark_dataset/
-*.pkl
-*.pth
-universal_model.pkl
-!landmarks_dataset.pkl
+custom_data/
+TempDataset/
 
-# Keep small config if needed, but universal_model.pkl is TABOO (310MB)
+# Debug files
+debug_*.py
+canonical_templates_visualization.png
+
+# ============================================
+# ESSENTIAL FILES TO INCLUDE (Small, required)
+# ============================================
+# These are NOT in gitignore - they will be pushed:
+# - robust_model_gpu.pth (105KB) - Trained model
+# - robust_classes.pkl (128B) - Class labels
+# - canonical_landmarks.pkl (5KB) - Visual guide data
 
 # System
 .DS_Store
 Thumbs.db
+its_session.json

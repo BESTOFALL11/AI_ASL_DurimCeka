@@ -1,4 +1,8 @@
+# Sign Language Tutor - Required Dependencies
+# Install with: pip install -r requirements.txt
+
 opencv-python>=4.5.0
 mediapipe>=0.10.0
+torch>=2.0.0
+torchvision>=0.15.0
 numpy>=1.21.0
-scikit-learn>=1.0.0
