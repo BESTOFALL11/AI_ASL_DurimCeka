@@ -291,17 +291,15 @@ class GeometricClassifier:
         # R vs U vs V distinction (Two fingers up)
         uv_dist_norm = dist(index_tip, middle_tip) / hand_size
         if index_up and middle_up and not ring_up and not pinky_up:
-            # Check for finger crossing (R = index crossed over middle)
-            index_pip = lm[6]
-            middle_pip = lm[10]
-            fingers_close_x = abs(index_tip.x - middle_tip.x) < 0.03
-            fingers_different_y = abs(index_pip.y - middle_pip.y) > 0.02
+            # R detection: fingers close together but CROSSED (index tip higher/lower than middle tip)
+            fingers_close_x = abs(index_tip.x - middle_tip.x) < 0.06  # Widened
+            tips_different_y = abs(index_tip.y - middle_tip.y) > 0.03  # Check TIP Y positions
             
-            if fingers_close_x and fingers_different_y:
-                return "R"  # Fingers crossed
-            elif uv_dist_norm < 0.18:
+            if fingers_close_x and tips_different_y:
+                return "R"  # Fingers crossed - tips at different heights
+            elif uv_dist_norm < 0.12:  # Very strict - only truly together fingers
                 return "U"  # Fingers together
-            elif uv_dist_norm > 0.28:
+            elif uv_dist_norm > 0.30:  # Wide spread
                 return "V"  # Fingers apart
             # else: ambiguous, let neural network decide
         
