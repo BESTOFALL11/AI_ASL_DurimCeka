@@ -616,7 +616,7 @@ while cap.isOpened():
         cv2.putText(frame, debug_pred_3, (20, 510), cv2.FONT_HERSHEY_PLAIN, 1.2, (100, 100, 100), 1)
         
         # Mode Status Display
-        mode_text = "HYBRID MODE" if use_hybrid_mode else "TEMPLATE MATCH"
+        mode_text = "HYBRID MODE" if use_hybrid_mode else "NEURAL NET"
         mode_color = (255, 200, 0) if use_hybrid_mode else (0, 255, 255)
         cv2.putText(frame, "MODE:", (20, 560), cv2.FONT_HERSHEY_PLAIN, 1.2, (200, 200, 200), 1)
         cv2.putText(frame, mode_text, (20, 585), cv2.FONT_HERSHEY_PLAIN, 1.5, mode_color, 2)
