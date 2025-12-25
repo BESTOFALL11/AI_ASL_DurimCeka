@@ -519,27 +519,27 @@ while cap.isOpened():
                 debug_pred_3 = f"{CLASSES[top3_idx[0][2]]}: {top3_prob[0][2]*100:.1f}%"
 
             # --- POST-PROCESSING: R/U/V Disambiguation ---
-            # Neural network also struggles with these, add geometric check
-            if nn_pred in ['R', 'U', 'V']:
+            # Only apply geometric check when neural network is uncertain
+            # If NN is very confident (>90%), trust it!
+            if nn_pred in ['R', 'U', 'V'] and confidence < 0.90:
                 # Get finger positions
                 lm = hand_landmarks.landmark
                 index_tip = lm[8]
-                index_pip = lm[6]
                 middle_tip = lm[12]
-                middle_pip = lm[10]
                 
                 # Horizontal spread between fingertips
                 horizontal_spread = abs(index_tip.x - middle_tip.x)
+                # Vertical difference between tips (crossing check)
+                tips_different_y = abs(index_tip.y - middle_tip.y) > 0.03
                 
-                # Check for finger crossing (R)
-                fingers_crossed = abs(index_tip.x - middle_tip.x) < 0.03 and abs(index_pip.y - middle_pip.y) > 0.02
-                
-                if fingers_crossed:
-                    nn_pred = "R"
-                elif horizontal_spread < 0.04:
+                # Only override if geometric signal is very clear
+                if horizontal_spread < 0.06 and tips_different_y:
+                    nn_pred = "R"  # Clear crossed fingers
+                elif horizontal_spread < 0.03:  # Very strict for U
                     nn_pred = "U"
-                elif horizontal_spread > 0.08:
+                elif horizontal_spread > 0.10:  # Very clear V
                     nn_pred = "V"
+                # else: trust neural network
 
             # --- Fusion Logic ---
             # HYBRID MODE: Only if enabled by user
