@@ -680,8 +680,8 @@ while cap.isOpened():
     cv2.imshow("ASL Tutor [ROBUST]", frame)
     
     # Quit Handler
-    key = cv2.waitKey(1)
-    if key == ord('q'):
+    key = cv2.waitKey(1) & 0xFF  # Mask for Windows compatibility
+    if key == ord('q') or key == ord('Q') or key == 27:  # q, Q, or ESC
         break
     elif key == ord('h') or key == ord('H'):
         use_hybrid_mode = not use_hybrid_mode
